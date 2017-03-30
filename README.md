@@ -6,10 +6,10 @@
 * multibase: need tests
 
 * core-api: barely started
-  * bitswap: TODO
+  * bitswap: TODO//no spec
   * block: done-ish
-  * bootstrap: TODO
-  * config: TODO
+  * bootstrap: TODO//no doc
+  * config: done
   * dag: TODO
   * dht: TODO
   * files: TODO
@@ -21,7 +21,7 @@
   * swarm: TODO
 
 * http-node: TODO
-  * bitswap: TODO
+  * bitswap: TODO//no spec
   * block: TODO
   * bootstrap: TODO
   * config: TODO
@@ -36,7 +36,7 @@
   * swarm: TODO
 
 * js-ipfs-node: barely started
-  * bitswap: TODO
+  * bitswap: TODO//no spec
   * block: done-ish
   * bootstrap: TODO
   * config: TODO
