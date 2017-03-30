@@ -5,6 +5,8 @@
 * cid: **need tests**
 * multibase: **need tests**
 * multiaddr: **need tests**
+* peer-info: **need tests**
+* peer-id: **partial**
 
 * core-api: **in progress**
   * bitswap: TODO//no spec
@@ -19,7 +21,7 @@
   * pin: TODO
   * pubsub: TODO
   * repo: TODO
-  * swarm: TODO
+  * swarm: **need tests**
 
 * http-node: TODO
   * bitswap: TODO//no spec

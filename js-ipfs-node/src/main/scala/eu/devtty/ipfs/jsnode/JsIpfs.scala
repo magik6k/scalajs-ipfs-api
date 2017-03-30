@@ -6,8 +6,8 @@ import eu.devtty.ipfs.jsnode.util.FutureCall0
 import scala.concurrent.Future
 import scala.scalajs.js
 
-class JsIpfs(config: js.Any) extends IpfsNode {
-  private implicit val node = new raw.JsIpfs(config)
+class JsIpfs(nodeConfig: js.Any) extends IpfsNode {
+  private implicit val node = new raw.JsIpfs(nodeConfig)
 
   def id(): Future[PeerID] = node.id().toFuture
 
@@ -23,4 +23,7 @@ class JsIpfs(config: js.Any) extends IpfsNode {
   }
 
   def block: BlockApi = new JsBlockApi
+  def config: ConfigApi = ???
+  def files: FilesApi = ???
+  def swarm: SwarmApi = ???
 }
