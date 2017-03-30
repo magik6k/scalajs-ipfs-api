@@ -22,6 +22,14 @@ lazy val multibase = (project in file("multibase")).settings(commonSettings("mul
   npmDependencies in Compile += "multibase" -> "0.3.4"
 ).enablePlugins(ScalaJSPlugin, ScalaJSBundlerPlugin, IpfsPublish)
 
+lazy val multiaddr = (project in file("multiaddr")).settings(commonSettings("multiaddr"): _*).settings(
+  resolvers += "multihash" at "https://ipfs.io/ipfs/QmZBAJGLhy36WNgatg6AbSvrRJtod76bvyoyY8SUH5cMPU",
+  libraryDependencies ++= Seq(
+    "eu.devtty" %%% "multihash" % "0.4.5"
+  ),
+  npmDependencies in Compile += "multiaddr" -> "2.3.0"
+).enablePlugins(ScalaJSPlugin, ScalaJSBundlerPlugin, IpfsPublish)
+
 lazy val cid = (project in file("cid")).settings(commonSettings("cid"): _*).settings(
   resolvers += "multihash" at "https://ipfs.io/ipfs/QmZBAJGLhy36WNgatg6AbSvrRJtod76bvyoyY8SUH5cMPU",
   libraryDependencies ++= Seq(
@@ -37,7 +45,7 @@ lazy val coreApi = (project in file("core-api")).settings(commonSettings("core-a
   ),
   npmDependencies in Compile += "ipfs-block" -> "0.6.0"
 ).enablePlugins(ScalaJSPlugin, ScalaJSBundlerPlugin, IpfsPublish)
-  .dependsOn(cid)
+  .dependsOn(cid, multiaddr)
 
 lazy val jsNode = (project in file("js-ipfs-node")).settings(commonSettings("js-ipfs-node"): _*).settings(
   npmDependencies in Compile += "ipfs" -> "0.23.1"

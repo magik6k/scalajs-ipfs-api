@@ -2,18 +2,19 @@
 
 ## Status
 
-* cid: need tests
-* multibase: need tests
+* cid: **need tests**
+* multibase: **need tests**
+* multiaddr: **need tests**
 
-* core-api: in progress
+* core-api: **in progress**
   * bitswap: TODO//no spec
-  * block: done-ish
+  * block: **done-ish**
   * bootstrap: TODO//no doc
-  * config: done
+  * config: **done**
   * dag: TODO
   * dht: TODO
-  * files: need tests
-  * generic: started
+  * files: **need tests**
+  * generic: **need tests**
   * object: TODO
   * pin: TODO
   * pubsub: TODO
@@ -35,15 +36,15 @@
   * repo: TODO
   * swarm: TODO
 
-* js-ipfs-node: barely started
+* js-ipfs-node: **in progress**
   * bitswap: TODO//no spec
-  * block: done-ish
+  * block: **done-ish**
   * bootstrap: TODO
   * config: TODO
   * dag: TODO
   * dht: TODO
   * files: TODO
-  * generic: started
+  * generic: **started**
   * object: TODO
   * pin: TODO
   * pubsub: TODO
