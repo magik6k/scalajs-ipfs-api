@@ -1,7 +1,55 @@
-## In progress
+# Scalajs facades for js-ipfs APIs
 
-cid: need tests
-multibase: need tests
-core-api: barely started
-http-node: barely started
-js-ipfs-node: barely started
+## Status
+
+* cid: need tests
+* multibase: need tests
+
+* core-api: barely started
+  * bitswap: TODO
+  * block: done-ish
+  * bootstrap: TODO
+  * config: TODO
+  * dag: TODO
+  * dht: TODO
+  * files: TODO
+  * generic: started
+  * object: TODO
+  * pin: TODO
+  * pubsub: TODO
+  * repo: TODO
+  * swarm: TODO
+
+* http-node: TODO
+  * bitswap: TODO
+  * block: TODO
+  * bootstrap: TODO
+  * config: TODO
+  * dag: TODO
+  * dht: TODO
+  * files: TODO
+  * generic: TODO
+  * object: TODO
+  * pin: TODO
+  * pubsub: TODO
+  * repo: TODO
+  * swarm: TODO
+
+* js-ipfs-node: barely started
+  * bitswap: TODO
+  * block: done-ish
+  * bootstrap: TODO
+  * config: TODO
+  * dag: TODO
+  * dht: TODO
+  * files: TODO
+  * generic: started
+  * object: TODO
+  * pin: TODO
+  * pubsub: TODO
+  * repo: TODO
+  * swarm: TODO
+
+## License
+
+[MIT](LICENSE)
