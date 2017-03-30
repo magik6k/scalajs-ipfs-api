@@ -5,14 +5,14 @@
 * cid: need tests
 * multibase: need tests
 
-* core-api: barely started
+* core-api: in progress
   * bitswap: TODO//no spec
   * block: done-ish
   * bootstrap: TODO//no doc
   * config: done
   * dag: TODO
   * dht: TODO
-  * files: TODO
+  * files: need tests
   * generic: started
   * object: TODO
   * pin: TODO
