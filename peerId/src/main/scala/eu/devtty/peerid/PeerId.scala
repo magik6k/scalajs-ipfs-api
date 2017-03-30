@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation.JSImport
 
 @js.native
 @JSImport("peer-id", JSImport.Namespace)
-class PeerId extends js.native {
+class PeerId extends js.Object {
   def toHexString: String = js.native
   def toBytes: Buffer = js.native
   def toB58String: String = js.native

@@ -14,7 +14,7 @@ trait FilesApi {
     * @param options
     * @return
     */
-  def add(data: Array[NamedBuffer], options: DagImporterOptions = null): Future[Array[AddResult]]
+  def add(data: Array[NamedBuffer], options: DagImporterOptions): Future[Array[AddResult]]
 
   /**
     * Add files and data to IPFS
@@ -22,7 +22,7 @@ trait FilesApi {
     * @param options
     * @return
     */
-  def add(data: Array[NamedReadable], options: DagImporterOptions = null): Future[Array[AddResult]]
+  def add(data: Array[NamedReadable], options: DagImporterOptions): Future[Array[AddResult]]
 
   /**
     * Add files and data to IPFS
@@ -30,7 +30,7 @@ trait FilesApi {
     * @param options
     * @return
     */
-  def add(data: Buffer, options: DagImporterOptions = null): Future[Array[AddResult]]
+  def add(data: Buffer, options: DagImporterOptions): Future[Array[AddResult]]
 
   /**
     * Add files and data to IPFS
@@ -38,8 +38,35 @@ trait FilesApi {
     * @param options
     * @return
     */
-  def add(data: Readable, options: DagImporterOptions = null): Future[Array[AddResult]]
+  def add(data: Readable, options: DagImporterOptions): Future[Array[AddResult]]
 
+  /**
+    * Add files and data to IPFS
+    * @param data
+    * @return
+    */
+  def add(data: Array[NamedBuffer]): Future[Array[AddResult]]
+
+  /**
+    * Add files and data to IPFS
+    * @param data
+    * @return
+    */
+  def add(data: Array[NamedReadable]): Future[Array[AddResult]]
+
+  /**
+    * Add files and data to IPFS
+    * @param data
+    * @return
+    */
+  def add(data: Buffer): Future[Array[AddResult]]
+
+  /**
+    * Add files and data to IPFS
+    * @param data
+    * @return
+    */
+  def add(data: Readable): Future[Array[AddResult]]
 
   /**
     * Add files and data to IPFS using a transform stream.
@@ -111,7 +138,7 @@ trait AddResult extends js.Object {
 
 @js.native
 trait AddStream extends Transform {
-  def write(file: NamedBuffer) = js.native
-  def write(file: NamedReadable) = js.native
+  def write(file: NamedBuffer): Unit = js.native
+  def write(file: NamedReadable): Unit = js.native
 }
 

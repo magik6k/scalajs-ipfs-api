@@ -7,14 +7,13 @@ import scala.concurrent.Future
 import scala.scalajs.js
 
 trait SwarmApi {
-  def addrs: Future[Array[PeerInfo]] = js.native
-  def connect(addr: Multiaddr): Future[_] = js.native //TODO: ensure future type
-  def disconnect(addr: Multiaddr): Future[_] = js.native //TODO: ensure future type
+  def addrs: Future[Array[PeerInfo]]
+  def connect(addr: Multiaddr): Future[_] //TODO: ensure future type
+  def disconnect(addr: Multiaddr): Future[_] //TODO: ensure future type
   def peers(opts: SwarmPeersOpts = null): Future[Array[ConnectedPeerInfo]]
 }
 
-@js.native
-object SwarmPeersOpts extends js.Object {
+object SwarmPeersOpts {
   def apply(verbose: Boolean): SwarmPeersOpts =
     js.Dynamic.literal(verbose = verbose).asInstanceOf[SwarmPeersOpts]
 }

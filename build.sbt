@@ -33,6 +33,8 @@ lazy val multiaddr = (project in file("multiaddr")).settings(commonSettings("mul
   npmDependencies in Compile += "multiaddr" -> "2.3.0"
 ).enablePlugins(ScalaJSPlugin, ScalaJSBundlerPlugin, IpfsPublish)
 
+
+
 ///////
 // LIBP2P / Lower level
 

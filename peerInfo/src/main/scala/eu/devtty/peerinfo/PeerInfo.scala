@@ -8,14 +8,14 @@ import scala.scalajs.js.annotation.JSImport
 
 @js.native
 @JSImport("peer-info", JSImport.Namespace)
-object PeerInfo {
+object PeerInfo extends js.Object {
   def create(id: PeerId, callBack: js.Function1[PeerInfo, _]): Unit = js.native
   def create(callBack: js.Function1[PeerInfo, _]): Unit = js.native
 }
 
 @js.native
 @JSImport("peer-info", JSImport.Namespace)
-class PeerInfo(id: PeerId) {
+class PeerInfo(id: PeerId) extends js.Object {
   val multiaddrs: MultiaddrSet = js.native
 
   def connect(ma: Multiaddr): Unit = js.native

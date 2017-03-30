@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation.JSImport
 
 @js.native
 @JSImport("multiaddr", JSImport.Namespace)
-object Multiaddr {
+object Multiaddr extends js.Object {
   //def fromNodeAddress - doc seems broken TODO: ask about things
   val protocols: MultiaddrProtocols = js.native
   def isMultiaddr(addr: Multiaddr): Boolean = js.native
