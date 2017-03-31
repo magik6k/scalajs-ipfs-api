@@ -14,13 +14,13 @@
   * bootstrap: TODO//no doc
   * config: **done**
   * dag: TODO
-  * dht: TODO
+  * dht: TODO//no doc
   * files: **need tests**
   * generic: **need tests**
   * object: TODO
-  * pin: TODO
-  * pubsub: TODO
-  * repo: TODO
+  * pin: TODO//no doc
+  * pubsub: **need tests**
+  * repo: TODO//no doc
   * swarm: **need tests**
 
 * http-node: TODO
