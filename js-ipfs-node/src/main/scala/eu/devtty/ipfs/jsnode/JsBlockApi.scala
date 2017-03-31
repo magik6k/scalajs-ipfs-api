@@ -15,12 +15,8 @@ class JsBlockApi(implicit val node: raw.JsIpfs) extends BlockApi {
   def get(cid: String): Future[Block] = FutureCallErr1(cb => block.get(cid, cb))
   def get(cid: Buffer): Future[Block] = FutureCallErr1(cb => block.get(cid, cb))
 
-  def put(data: Block, cid: CID): Future[Block] = FutureCallErr1(cb => block.put(data, cid, cb))
-  def put(data: Buffer, cid: CID): Future[Block] = FutureCallErr1(cb => block.put(data, cid, cb))
-  def put(data: Block, cid: String): Future[Block] = FutureCallErr1(cb => block.put(data, cid, cb))
-  def put(data: Buffer, cid: String): Future[Block] = FutureCallErr1(cb => block.put(data, cid, cb))
-  def put(data: Block, cid: Buffer): Future[Block] = FutureCallErr1(cb => block.put(data, cid, cb))
-  def put(data: Buffer, cid: Buffer): Future[Block] = FutureCallErr1(cb => block.put(data, cid, cb))
+  def put(data: Block): Future[Block] = FutureCallErr1(cb => block.put(data, cb))
+  def put(data: Buffer): Future[Block] = FutureCallErr1(cb => block.put(data, cb))
 
   def stat(cid: CID): Future[BlockStat] = FutureCallErr1(cb => block.stat(cid, cb))
   def stat(cid: String): Future[BlockStat] = FutureCallErr1(cb => block.stat(cid, cb))
