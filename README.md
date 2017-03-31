@@ -7,20 +7,21 @@
 * multiaddr: **need tests**
 * peer-info: **need tests**
 * peer-id: **partial**
+* ipld-format: **partial**
 
 * core-api: **in progress**
   * bitswap: TODO//no spec
   * block: **done-ish**
-  * bootstrap: TODO//no doc
+  * bootstrap: TODO//no spec
   * config: **done**
-  * dag: TODO
-  * dht: TODO//no doc
+  * dag: **really need tests**
+  * dht: TODO//no spec
   * files: **need tests**
   * generic: **need tests**
   * object: TODO
-  * pin: TODO//no doc
+  * pin: TODO//no spec
   * pubsub: **need tests**
-  * repo: TODO//no doc
+  * repo: TODO//no spec
   * swarm: **need tests**
 
 * http-node: TODO

@@ -1,9 +1,156 @@
 package eu.devtty.ipfs
 
+import javax.print.DocFlavor.INPUT_STREAM
+
+import eu.devtty.cid.CID
+import eu.devtty.ipld.DagNode
+
+import scala.concurrent.Future
 import scala.scalajs.js
 
-class DagApi {
-  //TODO
+trait DagApi {
+  /**
+    * Store an IPLD format node
+    * @param dagNode a DAG node that follows one of the supported IPLD formats.
+    * @param options
+    * @return
+    */
+  def put(dagNode: DagNode, options: DagPutOptions): Future[CID]
+
+  /**
+    * Store an IPLD format node
+    * @param dagNode a DAG node that follows one of the supported IPLD formats.
+    * @param options
+    * @return
+    */
+  def put(dagNode: js.Any, options: DagPutOptions): Future[CID]
+
+  /**
+    * Retrieve an IPLD format node
+    * @param cid
+    * @param path The path to be resolved
+    * @param options
+    * @return
+    */
+  def get(cid: CID, path: String, options: DagGetOptions): Future[DagGetResult]
+
+  /**
+    * Retrieve an IPLD format node
+    * @param cid
+    * @param options
+    * @return
+    */
+  def get(cid: CID, options: DagGetOptions): Future[DagGetResult]
+
+  /**
+    * Retrieve an IPLD format node
+    * @param cid
+    * @param path The path to be resolved
+    * @return
+    */
+  def get(cid: CID, path: String): Future[DagGetResult]
+
+  /**
+    * Retrieve an IPLD format node
+    * @param cid CID in its String format or a CID in its String format concatenated with the path to be resolved
+    * @param path The path to be resolved
+    * @param options
+    * @return
+    */
+  def get(cid: String, path: String, options: DagGetOptions): Future[DagGetResult]
+
+  /**
+    * Retrieve an IPLD format node
+    * @param cid CID in its String format or a CID in its String format concatenated with the path to be resolved
+    * @param options
+    * @return
+    */
+  def get(cid: String, options: DagGetOptions): Future[DagGetResult]
+
+  /**
+    * Retrieve an IPLD format node
+    * @param cid CID in its String format or a CID in its String format concatenated with the path to be resolved
+    * @param path The path to be resolved
+    * @return
+    */
+  def get(cid: String, path: String): Future[DagGetResult]
+
+  /**
+    * Enumerate all the entries in a graph
+    * @param cid
+    * @param path
+    * @param options
+    * @return
+    */
+  def tree(cid: CID, path: String, options: DagTreeOptions): Future[Array[String]]
+
+  /**
+    * Enumerate all the entries in a graph
+    * @param cid CID in its String format or a CID in its String format concatenated with the path to be resolved
+    * @param path
+    * @param options
+    * @return
+    */
+  def tree(cid: String, path: String, options: DagTreeOptions): Future[Array[String]]
+}
+
+object DagTreeOptions {
+  def apply(recursive: Boolean): DagTreeOptions =
+    js.Dynamic.literal(recursive = recursive).asInstanceOf[DagTreeOptions]
+}
+
+@js.native
+trait DagTreeOptions extends js.Object {
+  val recursive: Boolean = js.native
+}
+
+@js.native
+trait DagGetResult extends js.Object {
+  /**
+    * The value or node that was fetched during the get operation.
+    */
+  val value: js.Any = js.native //TODO: type
+
+  /**
+    * The remainder of the Path that the node was unable to resolve or what was left in a localResolve scenario.
+    */
+  val remainderPath: String = js.native
+}
+
+object DagGetOptions {
+  def apply(localResolve: Boolean): DagGetOptions =
+    js.Dynamic.literal(localResolve = localResolve).asInstanceOf[DagGetOptions]
+}
+
+@js.native
+trait DagGetOptions extends js.Object {
+  /**
+    * If set to true, it will avoid resolving through different objects.
+    */
+  val localResolve: Boolean = js.native
+}
+
+object DagPutOptions {
+  def apply(format: js.UndefOr[String], hashAlg: js.UndefOr[String], cid: js.UndefOr[CID]): DagPutOptions
+    = js.Dynamic.literal(format = format, hashAlg = hashAlg, cid = cid).asInstanceOf[DagPutOptions]
+}
+
+@js.native
+trait DagPutOptions extends js.Object {
+  /**
+    * The IPLD format multicodec.
+    */
+  val format: js.UndefOr[String] = js.native
+
+  /**
+    * The hash algorithm to be used over the serialized dagNode
+    */
+  val hashAlg: js.UndefOr[String] = js.native
+
+  /**
+    * CID of the node passed(use this or format+hashAlg)
+    */
+  val cid: js.UndefOr[CID] = js.native
 }
 
 object DagImporterOptions {

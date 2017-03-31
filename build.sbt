@@ -36,6 +36,10 @@ lazy val multihash = (project in file("multihash")).settings(commonSettings("mul
 ///////
 // LIBP2P / Lower level
 
+lazy val ipld = (project in file("ipld")).settings(commonSettings("ipld"): _*).settings(
+).enablePlugins(ScalaJSPlugin, ScalaJSBundlerPlugin, IpfsPublish)
+  .dependsOn(cid)
+
 lazy val cid = (project in file("cid")).settings(commonSettings("cid"): _*).settings(
   npmDependencies in Compile += "cids" -> "0.4.2"
 ).enablePlugins(ScalaJSPlugin, ScalaJSBundlerPlugin, IpfsPublish)
@@ -57,7 +61,7 @@ lazy val peerId = (project in file("peerId")).settings(commonSettings("peerId"):
 lazy val coreApi = (project in file("core-api")).settings(commonSettings("core-api"): _*).settings(
   npmDependencies in Compile += "ipfs-block" -> "0.6.0"
 ).enablePlugins(ScalaJSPlugin, ScalaJSBundlerPlugin, IpfsPublish)
-  .dependsOn(cid, multiaddr, peerInfo)
+  .dependsOn(cid, multiaddr, peerInfo, ipld)
 
 lazy val jsNode = (project in file("js-ipfs-node")).settings(commonSettings("js-ipfs-node"): _*).settings(
   npmDependencies in Compile += "ipfs" -> "0.23.1"
