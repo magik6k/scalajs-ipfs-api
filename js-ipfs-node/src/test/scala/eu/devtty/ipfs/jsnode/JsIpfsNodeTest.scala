@@ -25,9 +25,18 @@ object JsIpfsNodeTest extends TestSuite {
       }
     }
 
+    'nodeVersion{
+      node.flatMap { n =>
+        n.version.map { version =>
+          assert(version != null)
+          println(s"Node version: ${version.version}")
+        }
+      }
+    }
+
     'nodeId{
       node.flatMap { n =>
-        n.id().map { pid =>
+        n.id.map { pid =>
           println(s"Node ID: ${pid.id}")
           val decoded = MultiHash.decode(MultiHash.fromB58String(pid.id))
           decoded.digest.length ==> decoded.length

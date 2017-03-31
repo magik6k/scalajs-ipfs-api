@@ -4,7 +4,7 @@ import scala.concurrent.Future
 
 trait IpfsNode {
   def id(): Future[PeerID]
-  def version: Future[String]
+  def version: Future[Version]
 
   def block: BlockApi
   def config: ConfigApi
