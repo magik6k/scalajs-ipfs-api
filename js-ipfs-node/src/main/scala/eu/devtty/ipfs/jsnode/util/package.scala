@@ -2,6 +2,7 @@ package eu.devtty.ipfs.jsnode
 
 import scala.concurrent.{Future, Promise}
 import scala.scalajs.js
+import scala.scalajs.js.JSON
 
 
 package object util {
@@ -31,7 +32,8 @@ package object util {
       fn { (err, a) =>
         if(err != null)
           p.failure(new Exception(err))
-        p.success(a)
+        else
+          p.success(a)
       }
       p.future
     }

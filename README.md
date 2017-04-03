@@ -16,7 +16,7 @@
   * config: **done**
   * dag: **really need tests**
   * dht: TODO//no spec
-  * files: **need tests**
+  * files: **done**
   * generic: **need tests**
   * object: TODO
   * pin: TODO//no spec
@@ -46,7 +46,7 @@
   * config: TODO
   * dag: TODO
   * dht: TODO
-  * files: TODO
+  * files: **done**
   * generic: **started**
   * object: TODO
   * pin: TODO
