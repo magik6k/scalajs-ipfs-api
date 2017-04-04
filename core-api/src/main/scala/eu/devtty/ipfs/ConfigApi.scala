@@ -10,7 +10,7 @@ trait ConfigApi {
     *            If no key is passed, then the whole config should be returned.
     * @return JSON object containing the configuration of the IPFS node
     */
-  def get(key: String): Future[js.Object]
+  def get(key: String): Future[js.Dynamic]
 
   /**
     * Adds or replaces a config value.

@@ -8,9 +8,10 @@ import scala.scalajs.js.annotation.JSImport
 
 @js.native
 @JSImport("ipfs", JSImport.Namespace)
-class JsIpfs(config: js.Any) extends js.Object {
+class JsIpfs(_config: js.Any) extends js.Object {
   val block: JsBlockApi = js.native
   val files: JsFilesApi = js.native
+  val config: JsConfigApi = js.native
 
   // Generic
   def id(): Promise[PeerID] = js.native

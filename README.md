@@ -42,8 +42,8 @@
 * js-ipfs-node: **in progress**
   * bitswap: TODO//no spec
   * block: **done-ish**
-  * bootstrap: TODO
-  * config: TODO
+  * bootstrap: TODO//no spec
+  * config: **done**
   * dag: TODO
   * dht: TODO
   * files: **done**

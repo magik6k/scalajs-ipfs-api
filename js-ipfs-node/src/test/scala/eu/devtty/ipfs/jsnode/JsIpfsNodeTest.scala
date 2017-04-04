@@ -10,7 +10,9 @@ import utest.framework.{Test, Tree}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{Future, Promise}
+import scala.scalajs.js
 import scala.scalajs.js.timers._
+import scala.util.{Failure, Success}
 
 object JsIpfsNodeTest extends TestSuite {
   lazy val node: Future[JsIpfs] = {
@@ -31,7 +33,7 @@ object JsIpfsNodeTest extends TestSuite {
         node.flatMap { n =>
           n.version.map { version =>
             assert(version != null)
-            println(s"Node version: ${version.version}")
+            println(s"IPFS Node version: ${version.version}")
           }
         }
       }
@@ -119,6 +121,32 @@ object JsIpfsNodeTest extends TestSuite {
           p.future
         }.map { data =>
           data ==> "Hello!\n"
+        }
+      }
+    }
+
+    'config{
+      'set{
+        node.flatMap { n =>
+          n.config.set("test", "test value")
+        }.andThen {
+          case Success(_) => assert(true)
+          case Failure(f) => throw f
+        }
+      }
+
+      'get{
+        node.flatMap { n =>
+          n.config.get("test")
+        }.andThen {
+          case Success(o) => o ==> "test value"
+          case Failure(f) => throw f
+        }
+      }
+
+      'getFail{
+        node.flatMap { n =>
+          n.config.get("testNonexist")
         }
       }
     }
