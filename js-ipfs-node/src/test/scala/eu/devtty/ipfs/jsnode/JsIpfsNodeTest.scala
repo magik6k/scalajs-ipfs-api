@@ -199,7 +199,6 @@ object JsIpfsNodeTest extends TestSuite {
 
       'connect{
         node1.zip(node2.flatMap(_.id.map(_.addresses(0)))).flatMap { case (n1, addr) =>
-
           n1.swarm.connect(new Multiaddr(addr))
         } andThen {
           case Success(_) => assert(true)
@@ -213,9 +212,15 @@ object JsIpfsNodeTest extends TestSuite {
         p.future
       }
 
-      'verifyConnection{
+      'verifyConnection2to1{
         node2.zip(node1.flatMap(_.id.map(_.addresses(0)))).flatMap { case (n2, addr) =>
-          n2.swarm.peers().map(connected => connected.exists(_.addr.equals(new Multiaddr(addr))))
+          n2.swarm.peers().map(peers => peers.exists(_.addr.equals(new Multiaddr(addr))))
+        }.map(res => assert(res))
+      }
+
+      'verifyConnection1to2{
+        node1.zip(node2.flatMap(_.id.map(_.addresses(0)))).flatMap { case (n1, addr) =>
+          n1.swarm.peers().map(peers => peers.exists(_.addr.equals(new Multiaddr(addr))))
         }.map(res => assert(res))
       }
     }
