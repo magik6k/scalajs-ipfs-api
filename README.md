@@ -45,13 +45,13 @@
   * bootstrap: TODO//no spec
   * config: **done**
   * dag: TODO
-  * dht: TODO
+  * dht: TODO//no spec//no implementation
   * files: **done**
   * generic: **started**
   * object: TODO
-  * pin: TODO
+  * pin: TODO//no spec//no implementation
   * pubsub: TODO
-  * repo: TODO
+  * repo: TODO//no spec
   * swarm: **done**
 
 ## License
