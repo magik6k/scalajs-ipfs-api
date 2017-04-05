@@ -8,8 +8,8 @@ import scala.scalajs.js
 
 trait SwarmApi {
   def addrs: Future[Array[PeerInfo]]
-  def connect(addr: Multiaddr): Future[_] //TODO: ensure future type
-  def disconnect(addr: Multiaddr): Future[_] //TODO: ensure future type
+  def connect(addr: Multiaddr): Future[_]
+  def disconnect(addr: Multiaddr): Future[_]
   def peers(opts: SwarmPeersOpts = null): Future[Array[ConnectedPeerInfo]]
 }
 

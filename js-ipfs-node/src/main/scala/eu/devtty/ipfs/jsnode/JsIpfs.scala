@@ -27,5 +27,5 @@ class JsIpfs(nodeConfig: js.Any) extends IpfsNode {
   def config: ConfigApi = new JsConfigApi
   def files: FilesApi = new JsFilesApi
   def pubsub: PubsubApi = ???
-  def swarm: SwarmApi = ???
+  def swarm: SwarmApi = new JsSwarmApi
 }

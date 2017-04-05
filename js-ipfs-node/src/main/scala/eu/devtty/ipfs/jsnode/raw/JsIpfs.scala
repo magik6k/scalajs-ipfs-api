@@ -12,6 +12,7 @@ class JsIpfs(_config: js.Any) extends js.Object {
   val block: JsBlockApi = js.native
   val files: JsFilesApi = js.native
   val config: JsConfigApi = js.native
+  val swarm: JsSwarmApi = js.native
 
   // Generic
   def id(): Promise[PeerID] = js.native

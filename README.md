@@ -22,7 +22,7 @@
   * pin: TODO//no spec
   * pubsub: **need tests**
   * repo: TODO//no spec
-  * swarm: **need tests**
+  * swarm: **done**
 
 * http-node: TODO
   * bitswap: TODO//no spec
@@ -52,7 +52,7 @@
   * pin: TODO
   * pubsub: TODO
   * repo: TODO
-  * swarm: TODO
+  * swarm: **done**
 
 ## License
 

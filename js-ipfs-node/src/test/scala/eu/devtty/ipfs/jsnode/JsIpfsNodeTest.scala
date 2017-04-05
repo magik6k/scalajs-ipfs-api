@@ -10,7 +10,7 @@ import utest.framework.{Test, Tree}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{Future, Promise}
-import scala.scalajs.js
+import scala.scalajs.js.JavaScriptException
 import scala.scalajs.js.timers._
 import scala.util.{Failure, Success}
 
@@ -143,10 +143,22 @@ object JsIpfsNodeTest extends TestSuite {
           case Failure(f) => throw f
         }
       }
+    }
 
-      'getFail{
+    'swarm {
+      'addrs{
         node.flatMap { n =>
-          n.config.get("testNonexist")
+          n.swarm.addrs
+        } map { addrs =>
+          assert(addrs.length > 0)
+        }
+      }
+
+      'peers{
+        node.flatMap { n =>
+          n.swarm.peers()
+        } map { peers =>
+          assert(peers.length > 0)
         }
       }
     }
