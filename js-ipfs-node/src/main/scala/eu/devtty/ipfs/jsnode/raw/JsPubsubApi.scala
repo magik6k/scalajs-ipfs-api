@@ -14,5 +14,6 @@ trait JsPubsubApi extends js.Object {
 
   def publish(topic: String, data: Buffer): js.Promise[_] = js.native
   def ls(topic: String): js.Promise[js.Array[String]] = js.native
+  def ls(): js.Promise[js.Array[String]] = js.native
   def peers(topic: String): js.Promise[js.Array[String]] = js.native
 }

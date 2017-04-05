@@ -48,6 +48,12 @@ trait PubsubApi {
   def ls(topic: String): Future[Array[String]]
 
   /**
+    * Returns the list of subscriptions the peer is subscribed to.
+    * @return List of topicCIDs that this peer is subscribed to
+    */
+  def ls(): Future[Array[String]]
+
+  /**
     * Returns the peers that are subscribed to one topic.
     * @param topic
     * @return List of peer ids subscribed to the topic.

@@ -20,7 +20,7 @@
   * generic: **need tests**
   * object: TODO
   * pin: TODO//no spec
-  * pubsub: **need tests**
+  * pubsub: **done**/unsubscribe is broken
   * repo: TODO//no spec
   * swarm: **done**
 
@@ -50,7 +50,7 @@
   * generic: **started**
   * object: TODO
   * pin: TODO//no spec//no implementation
-  * pubsub: TODO
+  * pubsub: **done**/unsubscribe is broken
   * repo: TODO//no spec
   * swarm: **done**
 

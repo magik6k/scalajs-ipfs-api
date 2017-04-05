@@ -1,7 +1,9 @@
 package eu.devtty.ipfs.jsnode
 
+import java.util.UUID
+
 import eu.devtty.cid.CID
-import eu.devtty.ipfs.{AddResult, Block, DagImporterOptions}
+import eu.devtty.ipfs.{AddResult, Block, DagImporterOptions, PubsubMsg}
 import eu.devtty.multiaddr.Multiaddr
 import eu.devtty.multihash.MultiHash
 import io.scalajs.nodejs.buffer.Buffer
@@ -19,6 +21,9 @@ object JsIpfsNodeTest extends TestSuite {
   lazy val node1: Future[JsIpfs] = {
     val n = new JsIpfs(js.Dynamic.literal(
       repo = "/tmp/scalajs-ipfs-test1",
+      EXPERIMENTAL = js.Dynamic.literal(
+        pubsub = true
+      ),
       config = js.Dynamic.literal(
         Addresses = js.Dynamic.literal(
           Swarm = js.Array(
@@ -34,6 +39,9 @@ object JsIpfsNodeTest extends TestSuite {
   lazy val node2: Future[JsIpfs] = {
     val n = new JsIpfs(js.Dynamic.literal(
       repo = "/tmp/scalajs-ipfs-test2",
+      EXPERIMENTAL = js.Dynamic.literal(
+        pubsub = true
+      ),
       config = js.Dynamic.literal(
         Addresses = js.Dynamic.literal(
           Swarm = js.Array(
@@ -47,6 +55,12 @@ object JsIpfsNodeTest extends TestSuite {
   }
 
   lazy val nodes = Future.sequence(Seq(node1, node2))
+
+  //Pubsub test globals
+  private val topicUUID = UUID.randomUUID().toString
+  private val testMessage = UUID.randomUUID().toString
+  private val messagePromise = Promise[Buffer]
+  private val pubsubMsgHandler: (PubsubMsg)=>Unit = (m: PubsubMsg) => messagePromise.success(m.data)
 
   override val tests: Tree[Test] = this {
     'node {
@@ -223,6 +237,53 @@ object JsIpfsNodeTest extends TestSuite {
           n1.swarm.peers().map(peers => peers.exists(_.addr.equals(new Multiaddr(addr))))
         }.map(res => assert(res))
       }
+    }
+
+    'pubsub{
+      'subscribe{
+        nodes.flatMap { n =>
+          Future.sequence(n.map(_.pubsub.subscribe(topicUUID, pubsubMsgHandler)))
+        }
+      }
+
+      'ls{
+        node1.flatMap { n =>
+          n.pubsub.ls()
+        }.map { topics =>
+          topics.length ==> 1
+          topics.head ==> topicUUID
+        }
+      }
+
+      'publish{
+        node1.flatMap { n =>
+          n.pubsub.publish(topicUUID, Buffer.from(testMessage))
+        }
+      }
+
+      'message{
+        messagePromise.future.map { m =>
+          m.toString() ==> testMessage
+        }
+      }
+
+      'peers{
+        node1.flatMap { n =>
+          n.pubsub.peers(topicUUID)
+        }.zip(node2.flatMap(_.id).map(_.id)).map { case (peers, peerId) =>
+          peers.length ==> 1
+          peers(0) ==> peerId
+        }
+      }
+
+      /*'unsubscribe{
+        node1.flatMap { n =>
+          n.pubsub.unsubscribe(topicUUID, pubsubMsgHandler)
+          n.pubsub.ls()
+        }.map { topics =>
+          topics.length ==> 0
+        }
+      }*/
     }
 
     'cleanupAndStop{
