@@ -1,57 +1,33 @@
-package eu.devtty.ipfs.jsnode
+package eu.devtty.ipfs.apinode
 
 import java.util.UUID
 
 import eu.devtty.cid.CID
 import eu.devtty.ipfs._
+import eu.devtty.ipfs.api.IpfsApi
 import eu.devtty.multiaddr.Multiaddr
 import eu.devtty.multihash.MultiHash
+import io.scalajs.JSON
 import io.scalajs.nodejs.buffer.Buffer
-import io.scalajs.nodejs.process
+
+import scala.scalajs.js.timers._
 import utest._
 import utest.framework.{Test, Tree}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{Future, Promise}
 import scala.scalajs.js
-import scala.scalajs.js.timers._
 import scala.util.{Failure, Success}
 
-object JsIpfsNodeTest extends TestSuite {
-  lazy val node1: Future[JsIpfs] = {
-    val n = new JsIpfs(js.Dynamic.literal(
-      repo = "/tmp/scalajs-ipfs-test1",
-      EXPERIMENTAL = js.Dynamic.literal(
-        pubsub = true
-      ),
-      config = js.Dynamic.literal(
-        Addresses = js.Dynamic.literal(
-          Swarm = js.Array(
-            "/ip4/127.0.0.1/tcp/4101"
-          )
-        )
-      )
-    ))
-    n.on("stop").foreach { _ => process.exit(0) }
-    n.on("start").map { _ => n }
+object ApiNodeTest extends TestSuite {
+  lazy val node1: Future[IpfsApi] = {
+    val n = new IpfsApi()
+    Promise.successful(n).future
   }
 
-  lazy val node2: Future[JsIpfs] = {
-    val n = new JsIpfs(js.Dynamic.literal(
-      repo = "/tmp/scalajs-ipfs-test2",
-      EXPERIMENTAL = js.Dynamic.literal(
-        pubsub = true
-      ),
-      config = js.Dynamic.literal(
-        Addresses = js.Dynamic.literal(
-          Swarm = js.Array(
-            "/ip4/127.0.0.1/tcp/4102"
-          )
-        )
-      )
-    ))
-    n.on("stop").foreach { _ => process.exit(0) }
-    n.on("start").map { _ => n }
+  lazy val node2: Future[IpfsApi] = {
+    val n = new IpfsApi()
+    Promise.successful(n).future
   }
 
   lazy val nodes = Future.sequence(Seq(node1, node2))
@@ -64,12 +40,6 @@ object JsIpfsNodeTest extends TestSuite {
 
   override val tests: Tree[Test] = this {
     'node {
-      'online {
-        nodes.map { n =>
-          assert(n.forall(_.isOnline))
-        }
-      }
-
       'version {
         nodes.flatMap { n =>
           Future.sequence(n.map(_.version)) map { version =>
@@ -93,7 +63,7 @@ object JsIpfsNodeTest extends TestSuite {
     }
 
     'block{
-      'put{
+      /*'put{
         val expectedHash = "QmPv52ekjS75L4JmHpXVeuJ5uX2ecSfSZo88NSyxwA3rAQ"
         val cid = new CID(expectedHash)
         val blob = new Block(Buffer.from("blorb"), cid)
@@ -104,7 +74,7 @@ object JsIpfsNodeTest extends TestSuite {
             assert(b.cid.equals(cid))
           }
         }
-      }
+      }*/
 
       'stat{
         node1.flatMap { n =>
@@ -134,18 +104,23 @@ object JsIpfsNodeTest extends TestSuite {
         }
       }
 
-      'addStream{
+      /*'addStream{
         node1.flatMap { n =>
+          println("fadd1")
           n.files.createAddStream(DagImporterOptions())
         }.flatMap { stream =>
+
+          println("fadd2")
           val p = Promise[String]
           stream.on("data", { file: AddResult => p.success(file.hash) })
 
           stream.writeAsync(Buffer.from("Hello!\n")).future flatMap(_ => p.future)
         }.map { hash =>
+
+          println("fadd3")
           hash ==> "QmenmPhbFCbn2BGkGbNCjxFp5qdXnuhWL9Lqt6GjFq1NUK"
         }
-      }
+      }*/
 
       'cat{
         node1.flatMap { n =>
@@ -226,7 +201,7 @@ object JsIpfsNodeTest extends TestSuite {
         p.future
       }
 
-      'verifyConnection2to1{
+      /*'verifyConnection2to1{
         node2.zip(node1.flatMap(_.id.map(_.addresses(0)))).flatMap { case (n2, addr) =>
           n2.swarm.peers().map(peers => peers.exists(_.addr.equals(new Multiaddr(addr))))
         }.map(res => assert(res))
@@ -236,10 +211,10 @@ object JsIpfsNodeTest extends TestSuite {
         node1.zip(node2.flatMap(_.id.map(_.addresses(0)))).flatMap { case (n1, addr) =>
           n1.swarm.peers().map(peers => peers.exists(_.addr.equals(new Multiaddr(addr))))
         }.map(res => assert(res))
-      }
+      }*/
     }
 
-    'pubsub{
+    /*'pubsub{
       'subscribe{
         nodes.flatMap { n =>
           Future.sequence(n.map(_.pubsub.subscribe(topicUUID, pubsubMsgHandler)))
@@ -276,41 +251,49 @@ object JsIpfsNodeTest extends TestSuite {
         }
       }
 
-      /*'unsubscribe{
+      'unsubscribe{
         node1.flatMap { n =>
           n.pubsub.unsubscribe(topicUUID, pubsubMsgHandler)
           n.pubsub.ls()
         }.map { topics =>
           topics.length ==> 0
         }
-      }*/
-    }
+      }
+    }*/
 
     'dag{
-      'put{
+      /*'put{
+        println("dp")
+
         node1.flatMap { n =>
           n.dag.put(js.Dynamic.literal(a = 212, b = js.Dynamic.literal(test2 = "hello!")), DagPutOptions(format = "dag-cbor", hashAlg = "sha2-256"))
         }.map { cid =>
+          println(cid.toBaseEncodedString())
           cid.toBaseEncodedString() ==> "zdpuAsoMNnVgoceKDaMTouhY28Jh5w9PHmP9vufzuUMg7NAgs"
         }
-      }
+      }*/
 
       'get{
         node1.flatMap { n =>
-          n.dag.get("zdpuAsoMNnVgoceKDaMTouhY28Jh5w9PHmP9vufzuUMg7NAgs")
+          println("dg")
+
+          n.dag.get("zdpuAt5SNXeorCwqJELEXTpZfxbWYtSJW8fYfec2ii7Gndb8Z")
         }.map{ res =>
           res.value.asInstanceOf[js.Dynamic].a ==> 212
           res.value.asInstanceOf[js.Dynamic].b.test2 ==> "hello!"
+
+          println("dd")
         }
       }
     }
 
-    'cleanupAndStop{
+
+    /*'cleanupAndStop{
       node1.foreach { n =>
         setTimeout(250) { //HACK!!
           n.stop()
         }
       }
-    }
+    }*/
   }
 }

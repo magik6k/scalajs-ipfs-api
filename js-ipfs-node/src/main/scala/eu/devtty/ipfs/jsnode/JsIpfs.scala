@@ -1,6 +1,7 @@
 package eu.devtty.ipfs.jsnode
 
 import eu.devtty.ipfs._
+import eu.devtty.ipfs.jsinterface._
 import eu.devtty.ipfs.jsnode.util.FutureCall0
 
 import scala.concurrent.Future
@@ -25,6 +26,7 @@ class JsIpfs(nodeConfig: js.Any) extends IpfsNode {
 
   def block: BlockApi = new JsBlockApi
   def config: ConfigApi = new JsConfigApi
+  def dag: DagApi = new JsDagApi
   def files: FilesApi = new JsFilesApi
   def pubsub: PubsubApi = new JsPubsubApi
   def swarm: SwarmApi = new JsSwarmApi

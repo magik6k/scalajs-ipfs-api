@@ -8,6 +8,7 @@ trait IpfsNode {
 
   def block: BlockApi
   def config: ConfigApi
+  def dag: DagApi
   def files: FilesApi
   def pubsub: PubsubApi
   def swarm: SwarmApi

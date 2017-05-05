@@ -1,13 +1,13 @@
-package eu.devtty.ipfs.jsnode
+package eu.devtty.ipfs.jsinterface
 
 import eu.devtty.ipfs._
-import eu.devtty.ipfs.jsnode.util.FutureCallErr1
+import eu.devtty.ipfs.jsinterface.util.FutureCallErr1
 import io.scalajs.nodejs.buffer.Buffer
 import io.scalajs.nodejs.stream
 
 import scala.concurrent.Future
 
-class JsFilesApi(implicit val node: raw.JsIpfs) extends FilesApi {
+class JsFilesApi(implicit val node: raw.JsIpfsInterface) extends FilesApi {
   @inline
   private def files = node.files
 

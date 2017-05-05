@@ -1,12 +1,11 @@
 package eu.devtty.ipfs
 
-import javax.print.DocFlavor.INPUT_STREAM
-
 import eu.devtty.cid.CID
 import eu.devtty.ipld.DagNode
 
 import scala.concurrent.Future
 import scala.scalajs.js
+import scala.scalajs.js.|
 
 trait DagApi {
   /**
@@ -15,15 +14,7 @@ trait DagApi {
     * @param options
     * @return
     */
-  def put(dagNode: DagNode, options: DagPutOptions): Future[CID]
-
-  /**
-    * Store an IPLD format node
-    * @param dagNode a DAG node that follows one of the supported IPLD formats.
-    * @param options
-    * @return
-    */
-  def put(dagNode: js.Any, options: DagPutOptions): Future[CID]
+  def put(dagNode: DagNode | js.Any, options: DagPutOptions): Future[CID]
 
   /**
     * Retrieve an IPLD format node
@@ -32,7 +23,7 @@ trait DagApi {
     * @param options
     * @return
     */
-  def get(cid: CID, path: String, options: DagGetOptions): Future[DagGetResult]
+  def get(cid: CID | String, path: String, options: DagGetOptions): Future[DagGetResult]
 
   /**
     * Retrieve an IPLD format node
@@ -40,7 +31,7 @@ trait DagApi {
     * @param options
     * @return
     */
-  def get(cid: CID, options: DagGetOptions): Future[DagGetResult]
+  def get(cid: CID | String, options: DagGetOptions): Future[DagGetResult]
 
   /**
     * Retrieve an IPLD format node
@@ -48,32 +39,14 @@ trait DagApi {
     * @param path The path to be resolved
     * @return
     */
-  def get(cid: CID, path: String): Future[DagGetResult]
+  def get(cid: CID | String, path: String): Future[DagGetResult]
 
   /**
     * Retrieve an IPLD format node
-    * @param cid CID in its String format or a CID in its String format concatenated with the path to be resolved
-    * @param path The path to be resolved
-    * @param options
+    * @param cid
     * @return
     */
-  def get(cid: String, path: String, options: DagGetOptions): Future[DagGetResult]
-
-  /**
-    * Retrieve an IPLD format node
-    * @param cid CID in its String format or a CID in its String format concatenated with the path to be resolved
-    * @param options
-    * @return
-    */
-  def get(cid: String, options: DagGetOptions): Future[DagGetResult]
-
-  /**
-    * Retrieve an IPLD format node
-    * @param cid CID in its String format or a CID in its String format concatenated with the path to be resolved
-    * @param path The path to be resolved
-    * @return
-    */
-  def get(cid: String, path: String): Future[DagGetResult]
+  def get(cid: CID | String): Future[DagGetResult]
 
   /**
     * Enumerate all the entries in a graph
@@ -82,16 +55,7 @@ trait DagApi {
     * @param options
     * @return
     */
-  def tree(cid: CID, path: String, options: DagTreeOptions): Future[Array[String]]
-
-  /**
-    * Enumerate all the entries in a graph
-    * @param cid CID in its String format or a CID in its String format concatenated with the path to be resolved
-    * @param path
-    * @param options
-    * @return
-    */
-  def tree(cid: String, path: String, options: DagTreeOptions): Future[Array[String]]
+  def tree(cid: CID | String, path: String, options: DagTreeOptions): Future[Array[String]]
 }
 
 object DagTreeOptions {
@@ -131,7 +95,7 @@ trait DagGetOptions extends js.Object {
 }
 
 object DagPutOptions {
-  def apply(format: js.UndefOr[String], hashAlg: js.UndefOr[String], cid: js.UndefOr[CID]): DagPutOptions
+  def apply(format: js.UndefOr[String] = js.undefined, hashAlg: js.UndefOr[String] = js.undefined, cid: js.UndefOr[CID] = js.undefined): DagPutOptions
     = js.Dynamic.literal(format = format, hashAlg = hashAlg, cid = cid).asInstanceOf[DagPutOptions]
 }
 

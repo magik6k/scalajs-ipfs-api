@@ -1,11 +1,11 @@
-package eu.devtty.ipfs.jsnode
+package eu.devtty.ipfs.jsinterface
 
 import eu.devtty.ipfs.ConfigApi
 
 import scala.concurrent.Future
 import scala.scalajs.js
 
-class JsConfigApi(implicit val node: raw.JsIpfs) extends ConfigApi {
+class JsConfigApi(implicit val node: raw.JsIpfsInterface) extends ConfigApi {
   @inline
   private def config = node.config
 

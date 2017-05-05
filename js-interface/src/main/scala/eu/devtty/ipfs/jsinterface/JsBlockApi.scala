@@ -1,13 +1,13 @@
-package eu.devtty.ipfs.jsnode
+package eu.devtty.ipfs.jsinterface
 
 import eu.devtty.cid.CID
-import eu.devtty.ipfs.jsnode.util.FutureCallErr1
+import eu.devtty.ipfs.jsinterface.util.FutureCallErr1
 import eu.devtty.ipfs.{Block, BlockApi, BlockStat}
 import io.scalajs.nodejs.buffer.Buffer
 
 import scala.concurrent.Future
 
-class JsBlockApi(implicit val node: raw.JsIpfs) extends BlockApi {
+class JsBlockApi(implicit val node: raw.JsIpfsInterface) extends BlockApi {
   @inline
   private def block = node.block
 

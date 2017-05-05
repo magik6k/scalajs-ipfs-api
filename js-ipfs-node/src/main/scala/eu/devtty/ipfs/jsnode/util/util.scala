@@ -2,7 +2,6 @@ package eu.devtty.ipfs.jsnode
 
 import scala.concurrent.{Future, Promise}
 import scala.scalajs.js
-import scala.scalajs.js.JSON
 
 
 package object util {

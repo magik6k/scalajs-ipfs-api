@@ -24,27 +24,27 @@
   * repo: TODO//no spec
   * swarm: **done**
 
-* http-node: TODO
+* http-node: **in progress**
   * bitswap: TODO//no spec
-  * block: TODO
+  * block: **done-ish**
   * bootstrap: TODO
-  * config: TODO
-  * dag: TODO
+  * config: **done**
+  * dag: **done-ish**
   * dht: TODO
-  * files: TODO
-  * generic: TODO
+  * files: **done**
+  * generic: **done**
   * object: TODO
   * pin: TODO
   * pubsub: TODO
   * repo: TODO
-  * swarm: TODO
+  * swarm: **done**
 
 * js-ipfs-node: **in progress**
   * bitswap: TODO//no spec
   * block: **done-ish**
   * bootstrap: TODO//no spec
   * config: **done**
-  * dag: TODO
+  * dag: **done-ish**
   * dht: TODO//no spec//no implementation
   * files: **done**
   * generic: **started**

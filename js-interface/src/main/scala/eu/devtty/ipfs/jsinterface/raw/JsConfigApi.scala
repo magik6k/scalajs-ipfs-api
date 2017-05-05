@@ -1,4 +1,4 @@
-package eu.devtty.ipfs.jsnode.raw
+package eu.devtty.ipfs.jsinterface.raw
 
 import scala.scalajs.js
 

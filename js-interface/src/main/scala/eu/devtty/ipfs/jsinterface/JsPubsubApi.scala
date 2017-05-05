@@ -1,4 +1,4 @@
-package eu.devtty.ipfs.jsnode
+package eu.devtty.ipfs.jsinterface
 
 import eu.devtty.ipfs.{PubsubApi, PubsubMsg, PubsubSubOpts}
 import io.scalajs.nodejs.buffer.Buffer
@@ -6,7 +6,7 @@ import io.scalajs.nodejs.buffer.Buffer
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class JsPubsubApi(implicit val node: raw.JsIpfs) extends PubsubApi {
+class JsPubsubApi(implicit val node: raw.JsIpfsInterface) extends PubsubApi {
   @inline
   private def pubsub = node.pubsub
 

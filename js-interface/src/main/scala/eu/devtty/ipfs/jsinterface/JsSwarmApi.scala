@@ -1,6 +1,6 @@
-package eu.devtty.ipfs.jsnode
+package eu.devtty.ipfs.jsinterface
 
-import eu.devtty.ipfs.jsnode.util.FutureCallErr1
+import eu.devtty.ipfs.jsinterface.util.FutureCallErr1
 import eu.devtty.ipfs.{ConnectedPeerInfo, SwarmApi, SwarmPeersOpts}
 import eu.devtty.multiaddr.Multiaddr
 import eu.devtty.peerinfo.PeerInfo
@@ -9,7 +9,7 @@ import scala.concurrent.Future
 import scala.scalajs.js
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class JsSwarmApi(implicit val node: raw.JsIpfs) extends SwarmApi {
+class JsSwarmApi(implicit val node: raw.JsIpfsInterface) extends SwarmApi {
   @inline
   private def swarm = node.swarm
 

@@ -1,4 +1,4 @@
-package eu.devtty.ipfs.jsnode.raw
+package eu.devtty.ipfs.jsinterface.raw
 
 import eu.devtty.cid.CID
 import eu.devtty.ipfs.{Block, BlockStat}
