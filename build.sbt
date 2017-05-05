@@ -9,7 +9,7 @@ lazy val pubDir = {
 }
 
 def commonSettings(pname: String) = Seq(
-  version := "0.2-SNAPSHOT",
+  version := "0.2.1-SNAPSHOT",
   organization := "eu.devtty",
   scalaVersion := "2.12.1",
   name := pname,
@@ -92,7 +92,7 @@ lazy val jsNode = (project in file("js-ipfs-node")).settings(commonSettings("js-
 ).enablePlugins(ScalaJSPlugin, ScalaJSBundlerPlugin)
   .dependsOn(coreApi, jsInterface)
 
-lazy val apiNode = (project in file("api-ipfs-node")).settings(commonSettings("api-node"): _*).settings(
+lazy val apiNode = (project in file("api-ipfs-node")).settings(commonSettings("api-ipfs-node"): _*).settings(
   npmDependencies in Compile += "ipfs-api" -> "14.0.0"
 ).enablePlugins(ScalaJSPlugin, ScalaJSBundlerPlugin)
   .dependsOn(coreApi, jsInterface)
