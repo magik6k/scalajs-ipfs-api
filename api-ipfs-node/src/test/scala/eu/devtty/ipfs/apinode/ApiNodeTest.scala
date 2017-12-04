@@ -7,6 +7,7 @@ import eu.devtty.ipfs._
 import eu.devtty.ipfs.api.IpfsApi
 import eu.devtty.multiaddr.Multiaddr
 import eu.devtty.multihash.MultiHash
+import eu.devtty.ipld.util.IPLDLink
 import io.scalajs.JSON
 import io.scalajs.nodejs.buffer.Buffer
 
@@ -21,12 +22,12 @@ import scala.util.{Failure, Success}
 
 object ApiNodeTest extends TestSuite {
   lazy val node1: Future[IpfsApi] = {
-    val n = new IpfsApi()
+    val n = new IpfsApi("127.0.0.1", "5001")
     Promise.successful(n).future
   }
 
   lazy val node2: Future[IpfsApi] = {
-    val n = new IpfsApi()
+    val n = new IpfsApi("127.0.0.1", "5001")
     Promise.successful(n).future
   }
 
@@ -284,6 +285,26 @@ object ApiNodeTest extends TestSuite {
 
           println("dd")
         }
+      }
+
+      'putLink{
+        node1.flatMap { n =>
+          n.dag.put(js.Dynamic.literal(l = IPLDLink("zdpuAt5SNXeorCwqJELEXTpZfxbWYtSJW8fYfec2ii7Gndb8Z")), DagPutOptions(format = "dag-cbor", hashAlg = "sha2-256"))
+        }.map { cid =>
+          cid.toBaseEncodedString() ==> "zdpuB13VqwDkhxy5dkWxcT4yB8QVPZUB2Q8XSVVfgs841fm9T"
+        }
+      }
+
+      'getLink{
+        node1.flatMap { n => //println(node1.value.get.get)
+          println("GL")
+          n.dag.get("zdpuB13VqwDkhxy5dkWxcT4yB8QVPZUB2Q8XSVVfgs841fm9T")
+        }.map(l =>{l.value.asInstanceOf[js.Dynamic].l.asInstanceOf[IPLDLink]})
+          .flatMap { link => link.get(node1.value.get.get) }
+          .map{ res =>
+            res.value.asInstanceOf[js.Dynamic].a ==> 212
+            res.value.asInstanceOf[js.Dynamic].b.test2 ==> "hello!"
+          }
       }
     }
 

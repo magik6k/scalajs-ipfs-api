@@ -3,9 +3,11 @@ package eu.devtty.ipfs.jsnode
 import java.util.UUID
 
 import eu.devtty.cid.CID
+import eu.devtty.ipld.util.IPLDLink
 import eu.devtty.ipfs._
 import eu.devtty.multiaddr.Multiaddr
 import eu.devtty.multihash.MultiHash
+import io.scalajs.JSON
 import io.scalajs.nodejs.buffer.Buffer
 import io.scalajs.nodejs.process
 import utest._
@@ -302,6 +304,25 @@ object JsIpfsNodeTest extends TestSuite {
           res.value.asInstanceOf[js.Dynamic].a ==> 212
           res.value.asInstanceOf[js.Dynamic].b.test2 ==> "hello!"
         }
+      }
+
+      'putLink{
+        node1.flatMap { n =>
+          n.dag.put(js.Dynamic.literal(l = IPLDLink("zdpuAsoMNnVgoceKDaMTouhY28Jh5w9PHmP9vufzuUMg7NAgs")), DagPutOptions(format = "dag-cbor", hashAlg = "sha2-256"))
+        }.map { cid =>
+          cid.toBaseEncodedString() ==> "zdpuApp6Xi7hpbdkwoSGh7ThdFUbu89S6H2UEkpj5W7bk9R7M"
+        }
+      }
+
+      'getLink{
+        node1.flatMap { n =>println(node1.value.get.get)
+          n.dag.get("zdpuApp6Xi7hpbdkwoSGh7ThdFUbu89S6H2UEkpj5W7bk9R7M")
+        }.map(l =>{println(JSON.stringify(l)); l.value.asInstanceOf[js.Dynamic].l.asInstanceOf[IPLDLink]})
+          .flatMap { link => link.get(node1.value.get.get) }
+          .map{ res =>
+            res.value.asInstanceOf[js.Dynamic].a ==> 212
+            res.value.asInstanceOf[js.Dynamic].b.test2 ==> "hello!"
+          }
       }
     }
 
